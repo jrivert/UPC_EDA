@@ -75,6 +75,14 @@ def estadistica(ciclo,habitacionesInfectadas,muertos)
 	puts ""
 	puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" 
 end
+def senbrarBacteriaAutomaticamente(matriz,n)
+	for i in 1..n.to_i
+		nroA=rand(1..8)
+		nroB=rand(1..8)
+		matriz[nroA-1][nroB-1]="*"
+	end
+	return matriz
+end
 #Como será una matriz de nxn solo se considera un numero para poder multiplicarlo por en mismo numero
 
 #iniciamos la presentacion del sistmea
@@ -96,7 +104,6 @@ if modalidad=="M"
 
 	end while !valFormato
 	#Iniciar pedidos de cuartos infectados
-	c=1
 	for i in 1..respuesta.to_i
 		datoIngreso=solicitarHabitacionInfectada(i)
 		cordenadas=datoIngreso.split(",")
@@ -115,5 +122,19 @@ if modalidad=="M"
 	
 
 else
-    #aqui ira el proceso automatico
+	puts ""
+	puts "::::  Iniciando proceso de infección de forma automática  ::::"
+	formato=/(\d{1})/
+	begin
+		puts ""
+		print "Cuantos cuartos desea infectar de forma aleatoria: "
+		respuesta= gets.chomp
+		valFormato=formato.match(respuesta)
+
+	end while !valFormato
+	matriz1=senbrarBacteriaAutomaticamente(matriz,respuesta)
+	puts ""
+	puts showMatriz(matriz1)		
+	estadistica(0,respuesta,0)
+	
 end	
